@@ -1,0 +1,6 @@
+{
+  "name": "Basic tornado example",
+  "description": "A barebones tornado example using Heroku",
+  "repository": "https://github.com/pelson/my-first-heroku-tornado-app",
+  "keywords": ["python", "tornado"]
+}
