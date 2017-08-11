@@ -6,15 +6,16 @@ import tornado.ioloop
 import tornado.web
 
 
-get_count = 0
-
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        msg = 'Hello, world ({}) : #{}'
-        get_count += 1
         time_str = datetime.datetime.now().isoformat()
         msg = 'Hello, world ({}) : #{}'
-        self.write(msg.format(time_str, get_count))
+        is_original = not hasattr(self, 'get_count')
+        if is_original:
+            self.get_count = 0
+            msg += '  (first)'
+        self.get_count += 1
+        self.write(msg.format(time_str, self.get_count))
 
 
 def main():
