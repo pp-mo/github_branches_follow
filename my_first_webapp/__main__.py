@@ -15,18 +15,7 @@ class MainHandler(tornado.web.RequestHandler):
         self.write(msg.format(time_str))
 
     def post(self):
-#        received_json = self.get_body_argument("message")
-#        received_objects = json.loads(received_json)
-#        len_json = len(received_json)
-#        rx_type = type(received_objects)
-##        len_objs = len(received_objects)
-##        if rx_type == dict:
-##            rx_names = received_objects.keys()
-#        self.set_header("Content-Type", "text/plain")
-#        msg = 'received: strlen={} rxtype={}'.format(
-#            len_json, rx_type)
-#        self.write(msg.format(time_str))
-        report = 'headers=[{!r}]'.format(self.request.headers)
+        report = 'headers=[{!r}]'.format(dict(self.request.headers))
         body = tornado.escape.json_decode(self.request.body)
         report += '  //  body=[{!r}]'.format(body)
         response = 'OK! // {!s} // DONE OK! '.format(report)
