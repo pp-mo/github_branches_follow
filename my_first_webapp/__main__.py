@@ -36,10 +36,10 @@ def handle_post_for_webhook(request, app):
 #    response = 'OK! // {!s} // DONE OK! '.format(report)
 #    response = tornado.escape.native_str(response)
     headers = dict(request.headers)
-    return 'header-keys={!r}'.format(header.keys())
 
     event_type, err = expect_element(headers, 'headers', 'X-GitHub-Event')
     if err:
+        err += '... headers-keys={!r}'.format(headers.keys())
         return err
 
     if event_type != 'push':
