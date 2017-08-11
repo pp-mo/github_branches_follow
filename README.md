@@ -23,5 +23,6 @@ thus simplifying the eventual merge-back of the feature.
 TODO:
 
  * support configuration of branches and repos "somehow".
+ * log errors + make readable/clearable "somewhere"
  * have it serve a webpage where you can configure it
  * have it post config changes back to its own github repo (!)
