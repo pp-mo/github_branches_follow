@@ -26,7 +26,12 @@ class MainHandler(tornado.web.RequestHandler):
 #        msg = 'received: strlen={} rxtype={}'.format(
 #            len_json, rx_type)
 #        self.write(msg.format(time_str))
-        self.write('OK!')
+        report = 'headers=[{!r}]'.format(self.request.headers)
+        body = tornado.escape.json_decode(self.request.body)
+        report += '  //  body=[{!r}]'.format(body)
+        response = 'OK! // {!s} // DONE OK! '.format(report)
+        response = tornado.escape.native_str(response)
+        self.write(response)
 
 
 def main():
