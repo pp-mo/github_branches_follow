@@ -29,7 +29,7 @@ def expect_element(item_dict, item_name, element_name):
     return result
 
 
-def handle_post_for_webhook(request):
+def handle_post_for_webhook(request, app):
 #    report = 'headers=[{!r}]'.format(dict(request.headers))
 #    body = tornado.escape.json_decode(request.body)
 #    report += '  //  body=[{!r}]'.format(body)
