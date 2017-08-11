@@ -6,17 +6,15 @@ import tornado.ioloop
 import tornado.web
 
 
-class MainHandler(tornado.web.RequestHandler):
-    def __init__(self, *args, **kwargs):
-        super(MainHandler, self).__init__(*args, **kwargs)
-        self.get_count = 0
+get_count = 0
 
+class MainHandler(tornado.web.RequestHandler):
     def get(self):
         msg = 'Hello, world ({}) : #{}'
-        self.get_count += 1
+        get_count += 1
         time_str = datetime.datetime.now().isoformat()
         msg = 'Hello, world ({}) : #{}'
-        self.write(msg.format(time_str, self.get_count))
+        self.write(msg.format(time_str, get_count))
 
 
 def main():
