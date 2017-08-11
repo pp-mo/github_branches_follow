@@ -7,10 +7,9 @@ Based on a fork of : https://github.com/pelson/my-first-heroku-tornado-app
 The idea is to use webhooks to assist a "feature" development branch to track
 changes on the related "main" branch.
 
-It works with a given branch in a GitHub repository  
- -- this is currently *fixed* to https://github.com/pp-mo/github_trial.
+It works between specific configured branches within a GitHub repository.
 
-A GitHub webhook (??type), is enabled to notify this app of changes.
+A GitHub webhook must be pointed to this app, to notify it of changes.
 
 Method:
 -------
@@ -23,6 +22,6 @@ thus simplifying the eventual merge-back of the feature.
 
 TODO:
 
- * support multiple branches / repos
+ * support configuration of branches and repos "somehow".
  * have it serve a webpage where you can configure it
  * have it post config changes back to its own github repo (!)
