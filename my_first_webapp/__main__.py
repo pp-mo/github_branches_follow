@@ -7,8 +7,13 @@ import tornado.web
 
 
 class MainHandler(tornado.web.RequestHandler):
+    get_count = 0
     def get(self):
-        self.write("Hello, world ({})".format(datetime.datetime.now().isoformat()))
+        msg = 'Hello, world ({}) : #{}'
+        self.get_count += 1
+        time_str = datetime.datetime.now().isoformat()
+        msg = 'Hello, world ({}) : #{}'
+        self.write(msg.format(time_str, self.get_count))
 
 
 def main():
