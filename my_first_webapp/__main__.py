@@ -49,7 +49,7 @@ def create_update_pr(repo_url, tracked_branch_name, tracking_branch_name):
         'body': body
         }
     url = repo_base + '/pulls'
-    pr_post_response = requests.post(url, headers=headers, params=params)
+    pr_post_response = requests.post(url, json=params, headers=headers)
     ppr_head = str(pr_post_response)
     ppr_content = tornado.escape.json_decode(pr_post_response.content)
     response = 'PR-create({!s}:{!r})'.format(ppr_head, ppr_content)
