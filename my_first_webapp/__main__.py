@@ -1,3 +1,12 @@
+"""
+WebApp to enable "tracking" feature on GitHib feature branches.
+
+Effect : whenever new commits are pushed to the "tracked" branch,
+create a PR from "tracked" branch onto "tracking".
+
+Typical use: "master" is tracked --> "<some-feature-branch>"
+
+"""
 import datetime
 import os
 
@@ -10,8 +19,10 @@ import tornado.web
 
 #
 # TODOs:
-# * response strings should be sanitised ??
-# * work out how to get own github repo url for referencing ?
+#  * response strings should be sanitised ??
+#  * work out how to get own github repo url for referencing ?
+#  * translate main (github www) repo-url into api-url (currently fudged).
+#  * log errors in operation + make log visible / clearable.
 #
 
 
@@ -56,8 +67,6 @@ def create_update_pr(repo_url, tracked_branch_name, tracking_branch_name):
     return response
 
 
-
-
 def handle_post_for_webhook(request, app):
     headers = request.headers
     event_type, err = expect_element(headers, 'headers', 'X-GitHub-Event')
@@ -87,7 +96,7 @@ def handle_post_for_webhook(request, app):
 
     ref_path_els = ref_path.split('/')
     if (len(ref_path_els) != 3 or
-        ref_path_els[:2] != ['refs', 'heads']):
+            ref_path_els[:2] != ['refs', 'heads']):
         response = 'Ref path "{}" not of form "refs/heads/xxx"'
         response = response.format(ref_path)
         return response
@@ -96,7 +105,7 @@ def handle_post_for_webhook(request, app):
 
     response = ''
     for repo, tracked, tracking in app.recognised_branches:
-        if (repo==repo_url and tracked==push_branch_name):
+        if (repo == repo_url and tracked == push_branch_name):
             pulls_info = create_update_pr(repo, tracked, tracking)
             msg = '  In({!s}):track({!s}-->{!s})=<<{!s}>> '
             msg = msg.format(repo, tracked, tracking, pulls_info)
