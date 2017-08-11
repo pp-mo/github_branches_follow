@@ -1,6 +1,8 @@
 import datetime
 import os
 
+import requests
+
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
@@ -27,6 +29,21 @@ def expect_element(item_dict, item_name, element_name):
         error = error.format(item_name, element_name)
         result = None, error
     return result
+
+
+def create_update_pr(repo_url, tracked_branch_name, tracking_branch_name):
+    token_string = os.environ['GITHUB_ACCESS_TOKEN']
+    repo_base = r'https://api.github.com/repos/pp-mo/github_trial'
+    # CF: "https://github.com/pp-mo/github_trial"
+    headers = {'Authorization': 'token {}'.format(token_string),
+               'Accept': 'application/vnd.github.v3+json'}
+    params = {'state':'all'}
+    url = repo_base + '/pulls'
+    response = requests.get(url, headers=headers, params=params)
+#    print 'HEADERS:', response.headers['link']
+    return response
+
+
 
 
 def handle_post_for_webhook(request, app):
@@ -68,9 +85,9 @@ def handle_post_for_webhook(request, app):
     response = ''
     for repo, tracked, tracking in app.recognised_branches:
         if (repo==repo_url and tracked==push_branch_name):
-            # send_update_pr(repo, tracked, tracking)
-            msg = '  In({!s}):track({!s}-->{!s}) '
-            msg = msg.format(repo, tracked, tracking)
+            pulls_info = create_update_pr(repo, tracked, tracking)
+            msg = '  In({!s}):track({!s}-->{!s})=<<{!s}>> '
+            msg = msg.format(repo, tracked, tracking, pulls_info)
             response += msg
 
     if not response:
