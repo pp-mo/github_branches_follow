@@ -30,13 +30,7 @@ def expect_element(item_dict, item_name, element_name):
 
 
 def handle_post_for_webhook(request, app):
-#    report = 'headers=[{!r}]'.format(dict(request.headers))
-#    body = tornado.escape.json_decode(request.body)
-#    report += '  //  body=[{!r}]'.format(body)
-#    response = 'OK! // {!s} // DONE OK! '.format(report)
-#    response = tornado.escape.native_str(response)
-    headers = dict(request.headers)
-
+    headers = request.headers
     event_type, err = expect_element(headers, 'headers', 'X-GitHub-Event')
     if err:
         err += '... headers-keys={!r}'.format(headers.keys())
