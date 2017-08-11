@@ -8,6 +8,12 @@ import tornado.ioloop
 import tornado.web
 
 
+def handle_get_for_browsertest(request):
+    time_str = datetime.datetime.now().isoformat()
+    msg = 'Hello, world! ...  TIME = {}'
+    return msg.format(time_str)
+
+
 def handle_post_for_webhook(request):
     report = 'headers=[{!r}]'.format(dict(request.headers))
     body = tornado.escape.json_decode(request.body)
@@ -19,9 +25,8 @@ def handle_post_for_webhook(request):
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        time_str = datetime.datetime.now().isoformat()
-        msg = 'Hello, world! ...  TIME = {}'
-        self.write(msg.format(time_str))
+        response = handle_get_for_testpoke(self.request)
+        self.write(response)
 
     def post(self):
         response = handle_post_for_webhook(self.request)
