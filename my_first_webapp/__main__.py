@@ -48,7 +48,7 @@ def handle_post_for_webhook(request, app):
     if err:
         return err
 
-    repo_url, err = expect_element(repo, 'body[repository]', 'repo_url')
+    repo_url, err = expect_element(repo, 'body[repository]', 'url')
     if err:
         return err
 
