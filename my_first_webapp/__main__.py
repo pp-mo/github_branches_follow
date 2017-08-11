@@ -11,6 +11,7 @@ import tornado.web
 def handle_get_for_browsertest(request, application):
     time_str = datetime.datetime.now().isoformat()
     application.n_gets += 1
+    msg = "Hello!  TIME={}  #GETS={}"
     return msg.format(time_str, application.n_gets)
 
 
