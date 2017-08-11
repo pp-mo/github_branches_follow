@@ -8,7 +8,7 @@ import tornado.web
 
 class MainHandler(tornado.web.RequestHandler):
     def __init__(self, *args, **kwargs):
-        super(self, MainHandler).__init__(*args, **kwargs)
+        super(MainHandler, self).__init__(*args, **kwargs)
         self.get_count = 0
 
     def get(self):
