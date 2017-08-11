@@ -9,7 +9,7 @@ import tornado.web
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         time_str = datetime.datetime.now().isoformat()
-        msg = 'Hello, world!\nTIME = {}'
+        msg = 'Hello, world! ...  TIME = {}'
         self.write(msg.format(time_str))
 
 
